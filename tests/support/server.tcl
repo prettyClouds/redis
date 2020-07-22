@@ -143,9 +143,10 @@ proc start_server {options {code undefined}} {
     if {$::external} {
         if {[llength $::servers] == 0} {
             set srv {}
+            set baseport [expr {$::port-100}]
             dict set srv "host" $::host
-            dict set srv "port" $::port
-            set client [redis $::host $::port]
+            dict set srv "port" $baseport
+            set client [redis $::host $baseport]
             dict set srv "client" $client
             $client select 9
 

@@ -127,12 +127,12 @@ proc srv {args} {
 # prepend the argument list with a negative level to access clients for
 # servers running in outer blocks.
 proc r {args} {
-    set level 0
-    if {[string is integer [lindex $args 0]]} {
-        set level [lindex $args 0]
-        set args [lrange $args 1 end]
-    }
-    [srv $level "client"] {*}$args
+    #set level 0
+    #if {[string is integer [lindex $args 0]]} {
+    #    set level [lindex $args 0]
+    #    set args [lrange $args 1 end]
+    #}
+    [srv 0 "client"] {*}$args
 }
 
 proc reconnect {args} {
@@ -488,6 +488,7 @@ for {set j 0} {$j < [llength $argv]} {incr j} {
     } elseif {$opt eq {--host}} {
         set ::external 1
         set ::host $arg
+        set ::numclients 1
         incr j
     } elseif {$opt eq {--port}} {
         set ::port $arg

@@ -1,8 +1,8 @@
-start_server {tags {"protocol"}} {
+start_server {} {
     test "Handle an empty query" {
-        reconnect
-        r write "\r\n"
-        r flush
+ #       reconnect
+       r write "\r\n"
+       r flush
         assert_equal "PONG" [r ping]
     }
 

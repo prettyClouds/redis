@@ -5,7 +5,7 @@ exec cp tests/assets/encodings.rdb $server_path
 
 start_server [list overrides [list "dir" $server_path "dbfilename" "encodings.rdb"]] {
   test "RDB encoding loading test" {
-    r select 0
+#    r select 0
     csvdump r
   } {"0","compressible","string","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 "0","hash","hash","a","1","aa","10","aaa","100","b","2","bb","20","bbb","200","c","3","cc","30","ccc","300","ddd","400","eee","5000000000",

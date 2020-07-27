@@ -32,7 +32,7 @@ start_server {tags {"repl"}} {
         }
 
         test {Slave is able to evict keys created in writable slaves} {
-            r -1 select 5
+ #           r -1 select 5
             assert {[r -1 dbsize] == 0}
             r -1 config set slave-read-only no
             r -1 set key1 1 ex 5

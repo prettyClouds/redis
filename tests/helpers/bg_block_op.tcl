@@ -10,7 +10,7 @@ source tests/support/util.tcl
 # blocking.
 proc bg_block_op {host port db ops} {
     set r [redis $host $port]
-    $r select $db
+#    $r select $db
 
     for {set j 0} {$j < $ops} {incr j} {
 

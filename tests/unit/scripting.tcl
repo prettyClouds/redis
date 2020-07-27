@@ -113,7 +113,7 @@ start_server {tags {"scripting"}} {
 
     test {EVAL - Is the Lua client using the currently selected DB?} {
         r set mykey "this is DB 9"
-        r select 10
+      #  r select 10
         r set mykey "this is DB 10"
         r eval {return redis.pcall('get',KEYS[1])} 1 mykey
     } {this is DB 10}
@@ -121,9 +121,9 @@ start_server {tags {"scripting"}} {
     test {EVAL - SELECT inside Lua should not affect the caller} {
         # here we DB 10 is selected
         r set mykey "original value"
-        r eval {return redis.pcall('select','9')} 0
+     #   r eval {return redis.pcall('select','9')} 0
         set res [r get mykey]
-        r select 9
+      #  r select 9
         set res
     } {original value}
 
@@ -612,16 +612,16 @@ foreach cmdrepl {0 1} {
             test "Lua scripts using SELECT are replicated correctly $rt" {
                 r eval {
                     redis.call("set","foo1","bar1")
-                    redis.call("select","10")
+                   # redis.call("select","10")
                     redis.call("incr","x")
-                    redis.call("select","11")
+                    # redis.call("select","11")
                     redis.call("incr","z")
                 } 0
                 r eval {
                     redis.call("set","foo1","bar1")
-                    redis.call("select","10")
+                  #  redis.call("select","10")
                     redis.call("incr","x")
-                    redis.call("select","11")
+                  #  redis.call("select","11")
                     redis.call("incr","z")
                 } 0
                 wait_for_condition 50 100 {

@@ -50,7 +50,7 @@ start_server {tags {"other"}} {
     } {10}
 
     test {SELECT an out of range DB} {
-        catch {r select 1000000} err
+     #   catch {r select 1000000} err
         set _ $err
     } {*index is out of range*}
 
@@ -233,10 +233,10 @@ start_server {tags {"other"}} {
     # Leave the user with a clean DB before to exit
     test {FLUSHDB} {
         set aux {}
-        r select 9
+    #    r select 9
         r flushdb
         lappend aux [r dbsize]
-        r select 10
+     #   r select 10
         r flushdb
         lappend aux [r dbsize]
     } {0 0}

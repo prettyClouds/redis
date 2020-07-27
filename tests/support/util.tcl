@@ -271,7 +271,7 @@ proc formatCommand {args} {
 proc csvdump r {
     set o {}
     for {set db 0} {$db < 16} {incr db} {
-        {*}$r select $db
+    #    {*}$r select $db
         foreach k [lsort [{*}$r keys *]] {
             set type [{*}$r type $k]
             append o [csvstring $db] , [csvstring $k] , [csvstring $type] ,
@@ -313,7 +313,7 @@ proc csvdump r {
             }
         }
     }
-    {*}$r select 9
+ #   {*}$r select 9
     return $o
 }
 

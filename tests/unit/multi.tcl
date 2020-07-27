@@ -197,17 +197,17 @@ start_server {tags {"multi"}} {
     } {PONG}
 
     test {WATCH is able to remember the DB a key belongs to} {
-        r select 5
+    #    r select 5
         r set x 30
         r watch x
-        r select 1
+    #    r select 1
         r set x 10
-        r select 5
+   #     r select 5
         r multi
         r ping
         set res [r exec]
         # Restore original DB
-        r select 9
+   #     r select 9
         set res
     } {PONG}
 
@@ -259,7 +259,7 @@ start_server {tags {"multi"}} {
         r set foo bar
         r exec
         assert_replication_stream $repl {
-            {select *}
+    #        {select *}
             {multi}
             {set foo bar}
             {exec}
@@ -273,7 +273,7 @@ start_server {tags {"multi"}} {
         r exec
         r set foo bar
         assert_replication_stream $repl {
-            {select *}
+      #      {select *}
             {set foo bar}
         }
         close_replication_stream $repl
@@ -287,7 +287,7 @@ start_server {tags {"multi"}} {
         r exec
         r set foo value2
         assert_replication_stream $repl {
-            {select *}
+         #   {select *}
             {set foo value2}
         }
         close_replication_stream $repl
@@ -300,7 +300,7 @@ start_server {tags {"multi"}} {
         r del foo
         r exec
         assert_replication_stream $repl {
-            {select *}
+        #    {select *}
             {multi}
             {exec}
         }

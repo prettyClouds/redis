@@ -160,12 +160,12 @@ start_server {tags {"keyspace"}} {
     } {0}
 
     test {DEL all keys again (DB 1)} {
-        r select 10
+#        r select 10
         foreach key [r keys *] {
             r del $key
         }
         set res [r dbsize]
-        r select 9
+ #       r select 9
         format $res
     } {0}
 
@@ -175,10 +175,10 @@ start_server {tags {"keyspace"}} {
         set res {}
         lappend res [r exists mykey]
         lappend res [r dbsize]
-        r select 10
+  #      r select 10
         lappend res [r get mykey]
         lappend res [r dbsize]
-        r select 9
+  #      r select 9
         format $res
     } [list 0 0 foobar 1]
 
@@ -194,45 +194,45 @@ start_server {tags {"keyspace"}} {
     } {*ERR*index out of range}
 
     test {MOVE can move key expire metadata as well} {
-        r select 10
+  #      r select 10
         r flushdb
-        r select 9
+  #      r select 9
         r set mykey foo ex 100
         r move mykey 10
         assert {[r ttl mykey] == -2}
-        r select 10
+  #      r select 10
         assert {[r ttl mykey] > 0 && [r ttl mykey] <= 100}
         assert {[r get mykey] eq "foo"}
-        r select 9
+   #     r select 9
     }
 
     test {MOVE does not create an expire if it does not exist} {
-        r select 10
+   #     r select 10
         r flushdb
-        r select 9
+   #     r select 9
         r set mykey foo
         r move mykey 10
         assert {[r ttl mykey] == -2}
-        r select 10
+  #      r select 10
         assert {[r ttl mykey] == -1}
         assert {[r get mykey] eq "foo"}
-        r select 9
+  #      r select 9
     }
 
     test {SET/GET keys in different DBs} {
         r set a hello
         r set b world
-        r select 10
+   #     r select 10
         r set a foo
         r set b bared
-        r select 9
+  #      r select 9
         set res {}
         lappend res [r get a]
         lappend res [r get b]
-        r select 10
+  #      r select 10
         lappend res [r get a]
         lappend res [r get b]
-        r select 9
+   #     r select 9
         format $res
     } {hello world foo bared}
 

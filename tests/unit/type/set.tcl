@@ -274,17 +274,17 @@ start_server {
         lsort [r sinter set1 set2]
     } {1 2 3}
 
-    #test "SINTERSTORE against non existing keys should delete dstkey" {
-    #    r set setres xxx
-    #    assert_equal 0 [r sinterstore setres foo111 bar222]
-    #    assert_equal 0 [r exists setres]
-    #}
-#
-    #test "SUNIONSTORE against non existing keys should delete dstkey" {
-    #    r set setres xxx
-    #    assert_equal 0 [r sunionstore setres foo111 bar222]
-    #    assert_equal 0 [r exists setres]
-    #}
+    test "SINTERSTORE against non existing keys should delete dstkey" {
+        r set setres xxx
+        assert_equal 0 [r sinterstore setres foo111 bar222]
+        assert_equal 0 [r exists setres]
+    }
+
+    test "SUNIONSTORE against non existing keys should delete dstkey" {
+      r set setres xxx
+       assert_equal 0 [r sunionstore setres foo111 bar222]
+        assert_equal 0 [r exists setres]
+    }
 
     foreach {type contents} {hashtable {a b c} intset {1 2 3}} {
         test "SPOP basics - $type" {
@@ -415,7 +415,7 @@ start_server {
             #
             # 1) Check that it returns repeated elements.
             set res [r srandmember myset -100]
-            #assert_equal [llength $res] 100
+            assert_equal [llength $res] 100
 
             # 2) Check that all the elements actually belong to the
             # original set.

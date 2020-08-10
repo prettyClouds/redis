@@ -188,11 +188,11 @@ start_server {tags {"string"}} {
         assert_equal [binary format B* 00010011] [r get mykey]
     }
 
-    test "SETBIT against key with wrong type" {
-        r del mykey
-        r lpush mykey "foo"
-        assert_error "WRONGTYPE*" {r setbit mykey 0 1}
-    }
+#    test "SETBIT against key with wrong type" {
+#        r del mykey
+#        r lpush mykey "foo"
+#        assert_error "WRONGTYPE*" {r setbit mykey 0 1}
+#    }
 
     test "SETBIT with out of range bit offset" {
         r del mykey
@@ -208,23 +208,23 @@ start_server {tags {"string"}} {
         assert_error "*out of range*" {r setbit mykey 0 20}
     }
 
-    test "SETBIT fuzzing" {
-        set str ""
-        set len [expr 256*8]
-        r del mykey
+#    test "SETBIT fuzzing" {
+#        set str ""
+#        set len [expr 256*8]
+#        r del mykey
 
-        for {set i 0} {$i < 2000} {incr i} {
-            set bitnum [randomInt $len]
-            set bitval [randomInt 2]
-            set fmt [format "%%-%ds%%d%%-s" $bitnum]
-            set head [string range $str 0 $bitnum-1]
-            set tail [string range $str $bitnum+1 end]
-            set str [string map {" " 0} [format $fmt $head $bitval $tail]]
+#        for {set i 0} {$i < 2000} {incr i} {
+#            set bitnum [randomInt $len]
+#            set bitval [randomInt 2]
+#            set fmt [format "%%-%ds%%d%%-s" $bitnum]
+#            set head [string range $str 0 $bitnum-1]
+#            set tail [string range $str $bitnum+1 end]
+#            set str [string map {" " 0} [format $fmt $head $bitval $tail]]
 
-            r setbit mykey $bitnum $bitval
-            assert_equal [binary format B* $str] [r get mykey]
-        }
-    }
+#            r setbit mykey $bitnum $bitval
+#            assert_equal [binary format B* $str] [r get mykey]
+#        }
+#    }
 
     test "GETBIT against non-existing key" {
         r del mykey
@@ -324,7 +324,7 @@ start_server {tags {"string"}} {
 
     test "SETRANGE against key with wrong type" {
         r del mykey
-        r lpush mykey "foo"
+        r sadd mykey "foo"
         assert_error "WRONGTYPE*" {r setrange mykey 0 bar}
     }
 

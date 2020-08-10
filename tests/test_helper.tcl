@@ -149,9 +149,9 @@ proc reconnect {args} {
     dict set srv "client" $client
 
     # select the right db when we don't have to authenticate
-    if {![dict exists $config "requirepass"]} {
- #       $client select 9
-    }
+#    if {![dict exists $config "requirepass"]} {
+#        $client select 9
+#    }
 
     # re-set $srv in the servers list
     lset ::servers end+0 $srv
@@ -169,7 +169,7 @@ proc redis_deferring_client {args} {
 
     # select the right db and read the response (OK)
  #   $client select 9
-    $client read
+ #   $client read
     return $client
 }
 

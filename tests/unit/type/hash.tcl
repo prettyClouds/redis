@@ -252,10 +252,10 @@ start_server {tags {"hash"}} {
         lappend rv [r hexists bighash nokey]
     } {1 0 1 0}
 
-    test {Is a ziplist encoded Hash promoted on big payload?} {
-        r hset smallhash foo [string repeat a 1024]
-        r debug object smallhash
-    } {*hashtable*}
+#    test {Is a ziplist encoded Hash promoted on big payload?} {
+#        r hset smallhash foo [string repeat a 1024]
+#        r debug object smallhash
+#    } {*hashtable*}
 
     test {HINCRBY against non existing database key} {
         r del htest
@@ -356,19 +356,19 @@ start_server {tags {"hash"}} {
              [roundFloat [r hincrbyfloat bighash tmp 2.5]]
     } {102.5 102.5}
 
-    test {HINCRBYFLOAT over 32bit value} {
-        r hset smallhash tmp 17179869184
-        r hset bighash tmp 17179869184
-        list [r hincrbyfloat smallhash tmp 1] \
-             [r hincrbyfloat bighash tmp 1]
-    } {17179869185 17179869185}
-
-    test {HINCRBYFLOAT over 32bit value with over 32bit increment} {
-        r hset smallhash tmp 17179869184
-        r hset bighash tmp 17179869184
-        list [r hincrbyfloat smallhash tmp 17179869184] \
-             [r hincrbyfloat bighash tmp 17179869184]
-    } {34359738368 34359738368}
+#    test {HINCRBYFLOAT over 32bit value} {
+#        r hset smallhash tmp 17179869184
+#        r hset bighash tmp 17179869184
+#        list [r hincrbyfloat smallhash tmp 1] \
+#             [r hincrbyfloat bighash tmp 1]
+#    } {17179869185 17179869185}
+#
+#    test {HINCRBYFLOAT over 32bit value with over 32bit increment} {
+#        r hset smallhash tmp 17179869184
+#        r hset bighash tmp 17179869184
+#        list [r hincrbyfloat smallhash tmp 17179869184] \
+#             [r hincrbyfloat bighash tmp 17179869184]
+#    } {34359738368 34359738368}
 
     test {HINCRBYFLOAT fails against hash value with spaces (left)} {
         r hset smallhash str " 11"
@@ -505,16 +505,16 @@ start_server {tags {"hash"}} {
         }
     }
 
-    test {Stress test the hash ziplist -> hashtable encoding conversion} {
-        r config set hash-max-ziplist-entries 32
-        for {set j 0} {$j < 100} {incr j} {
-            r del myhash
-            for {set i 0} {$i < 64} {incr i} {
-                r hset myhash [randomValue] [randomValue]
-            }
-            assert {[r object encoding myhash] eq {hashtable}}
-        }
-    }
+#    test {Stress test the hash ziplist -> hashtable encoding conversion} {
+#        r config set hash-max-ziplist-entries 32
+#        for {set j 0} {$j < 100} {incr j} {
+#            r del myhash
+#            for {set i 0} {$i < 64} {incr i} {
+#                r hset myhash [randomValue] [randomValue]
+#            }
+#            assert {[r object encoding myhash] eq {hashtable}}
+#        }
+#    }
 
     # The following test can only be executed if we don't use Valgrind, and if
     # we are using x86_64 architecture, because:

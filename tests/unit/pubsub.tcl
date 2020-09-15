@@ -204,12 +204,13 @@ start_server {} {
 
     test "Mix SUBSCRIBE and PSUBSCRIBE" {
         set rd1 [redis_deferring_client]
+        set rd2 [redis_deferring_client]
         assert_equal {1} [subscribe $rd1 {foo.bar}]
-        assert_equal {2} [psubscribe $rd1 {foo.*}]
+        assert_equal {1} [psubscribe $rd2 {foo.*}]
 
         assert_equal 2 [r publish foo.bar hello]
         assert_equal {message foo.bar hello} [$rd1 read]
-        assert_equal {pmessage foo.* foo.bar hello} [$rd1 read]
+        assert_equal {pmessage foo.* foo.bar hello} [$rd2 read]
 
         # clean up clients
         $rd1 close

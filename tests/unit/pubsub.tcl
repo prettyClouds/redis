@@ -214,6 +214,7 @@ start_server {} {
 
         # clean up clients
         $rd1 close
+        $rd2 close
     }
 
     test "PUNSUBSCRIBE and UNSUBSCRIBE should always reply" {

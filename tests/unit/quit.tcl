@@ -13,17 +13,17 @@ start_server {tags {"quit"}} {
         assert_error * {r ping}
     }
 
-#    test "Pipelined commands after QUIT must not be executed" {
-#        reconnect
-#        r write [format_command quit]
-#        r write [format_command set foo bar]
-#        r flush
-#        assert_equal OK [r read]
-#        assert_error * {r read}
-#
-#        reconnect
-#        assert_equal {} [r get foo]
-#    }
+    test "Pipelined commands after QUIT must not be executed" {
+        reconnect
+        r write [format_command quit]
+        r write [format_command set foox bar]
+        r flush
+        assert_equal OK [r read]
+        assert_error * {r read}
+
+        reconnect
+        assert_equal {} [r get foox]
+    }
 
     test "Pipelined commands after QUIT that exceed read buffer size" {
         reconnect
